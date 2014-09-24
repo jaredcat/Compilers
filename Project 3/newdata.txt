@@ -1,0 +1,6 @@
+int     num1,   num2, num3 ,t ;
+num1  =3;   num2 =  5   ;
+num3    =           7   ;
+t=      num1 + num2; //compute num1+num2
+t    =  t+num3; //compute their total
+cout<<  t   ;
