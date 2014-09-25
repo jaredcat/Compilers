@@ -30,6 +30,7 @@ for line in f.readlines():
         line = line.replace("+", " + ")
         line = line.replace("<<", " << ")
         line = line.replace(";", " ;")
+        line = line.replace(" ,", ", ")
         tlist = line.split(" " or ";")
         for token in tlist:
             if token.startswith("//"):

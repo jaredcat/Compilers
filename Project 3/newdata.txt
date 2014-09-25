@@ -1,4 +1,4 @@
-int num1, num2, num3 ,t ;
+int num1, num2, num3, t ;
 num1 = 3 ; num2 = 5 ;
 num3 = 7 ;
 t = num1 + num2 ; 
