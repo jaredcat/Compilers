@@ -17,25 +17,26 @@ alpha = set(string.ascii_letters)
 
 #Num holds a set of digits
 num = set(string.digits)
-
+#symb holds a set of symbols and punctuation
 symb = set(string.punctuation)
-
-data = {"int", "float", "double", "char", "string"}
 
 # Loop over each line in the file
 for line in f.readlines():
 
-    line = line.replace(";", ";\n")
-
     if not line.startswith("//") and not line.startswith("\n"):
         # Strip the line to remove whitespace.
-        line = line.strip(' \t\n\r')
-        line = line.replace(" ", "")
-        line = line.replace(",", ", ")
+        line = line.strip(' \t\r')
         line = line.replace("=", " = ")
-        line = line.replace("//", "")
-
-
-        print(line)
-    # Split the line.
-line = line.split(";")
+        line = line.replace("+", " + ")
+        line = line.replace("<<", " << ")
+        line = line.replace(";", " ;")
+        tlist = line.split(" " or ";")
+        for token in tlist:
+            if token.startswith("//"):
+                g.write("\n")
+                break
+            if not token == '':
+                if not token.endswith('\n'):
+                    g.write(token + " ")
+                else:
+                    g.write(token)
