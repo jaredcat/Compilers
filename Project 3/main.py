@@ -20,13 +20,22 @@ num = set(string.digits)
 
 symb = set(string.punctuation)
 
+data = {"int", "float", "double", "char", "string"}
+
 # Loop over each line in the file
 for line in f.readlines():
 
+    line = line.replace(";", ";\n")
+
     if not line.startswith("//") and not line.startswith("\n"):
         # Strip the line to remove whitespace.
-        line = line.strip(' \t\r')
-        tlist = line.split(" ")
-    # Split the line.
-    line = line.split(";")
+        line = line.strip(' \t\n\r')
+        line = line.replace(" ", "")
+        line = line.replace(",", ", ")
+        line = line.replace("=", " = ")
+        line = line.replace("//", "")
 
+
+        print(line)
+    # Split the line.
+line = line.split(";")
