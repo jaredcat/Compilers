@@ -12,14 +12,6 @@ f = open("data.txt", "r")
 g = open("newdata.txt", "w")
 tlist = []
 
-#Alpa holds a set of letters
-alpha = set(string.ascii_letters)
-
-#Num holds a set of digits
-num = set(string.digits)
-#symb holds a set of symbols and punctuation
-symb = set(string.punctuation)
-
 # Loop over each line in the file
 for line in f.readlines():
 

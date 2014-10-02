@@ -1,0 +1,27 @@
+int    type
+main    reserved word
+(    separator
+)    separator
+{    separator
+float    type
+abc    identifier
+=    operator
+123.5    constant
+;    separator
+int    type
+tom    identifier
+=    operator
+25    constant
+,    separator
+xyzw    identifier
+;    separator
+xyzw    identifier
+=    operator
+tom    identifier
+*    operator
+abc    identifier
+;    separator
+cout<<    reserved word
+xyzw    identifier
+;    separator
+}    separator
