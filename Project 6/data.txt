@@ -1,0 +1,6 @@
+int main ( ) {
+ float abc = 123.5 ;
+int tom = 25 , xyzw ;
+xyzw = tom * abc ;
+cout<<xyzw;
+}
