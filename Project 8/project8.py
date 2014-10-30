@@ -11,40 +11,72 @@ classify = ([
     ["separator", "(", ")", ";", "{", "}", ")", ","]
 ])
 
+tokens = ['a', '+', '-', '*', '/', '(', ')', '$']
 
-line = input()
-stack = []
 
-stack.append("$E")
-for item in stack:
-    search = stack.pop
+def table(nonterminal, terminal):
+    if nonterminal == 'E':
+        if terminal == 'a' or terminal == '(':
+            return 'TQ'
+    elif nonterminal == 'Q':
+        if terminal == '+':
+            return '+TQ'
+        elif terminal == '-':
+            return '-TQ'
+        elif terminal == ')' or terminal == '$':
+            return '%'
+    elif nonterminal == 'T':
+        if terminal == 'a' or terminal == '(':
+            return 'FR'
+    elif nonterminal == 'R':
+        if terminal == '+' or terminal == '-' or terminal == ')' or terminal == '$':
+            return '%'
+        if terminal == '*':
+            return '*FR'
+        if terminal == '/':
+            return '/FR'
+    elif nonterminal == 'F':
+        if terminal == 'a':
+            return 'a'
+        if terminal == '(':
+            return '(E)'
+    else:
+        return ''
 
-# Strip the line to remove whitespace.
-line = line.strip(' \t\r')
-for token in line[0:len(line)]:
-    #Sets flag back to false
-    next_token = 0
-    #Check for a comment at the end of the line
-    if token.startswith("//"):
-        g.write("\n")
-        break
-    #Check if the token is empty
-    elif not token == '':
-        #Cycles though all the classes
-        for i in range(0, len(classify)):
-            #Checks if the token has been given a class already
-            if next_token:
-                break
-                #Cycles though all the objects in a class
-            for j in range(1, len(classify[i])):
-                if token == classify[i][j]:
-                    next_token = 1
-                    break
-                #If object has not been given a class
-                if not next_token:
-                    #If the token starts with a number then it must be a constant/digit
-                    if token[0].isdigit():
-                        g.write(token + "    constant" + "\n")
-                    #If the token stats with a letter than it must be an identifier
-                    elif token[0].isalpha():
-                        g.write(token + "    identifier" + "\n")
+
+def check_input(line):
+    i = 0
+    stack = ([])
+    stack.append('$')
+    stack.append('E')
+    while stack:
+        print(stack)
+
+        token = stack[len(stack)-1]
+        read = line[i]
+
+        if token in tokens:
+            if token == read:
+                stack.pop()
+                i += 1
+            else:
+                return "Rejected"
+        else:
+            lookup = table(token, read)
+            if lookup == '%':
+                stack.pop()
+            elif lookup != '':
+                stack.pop()
+                for j in reversed(lookup):
+                    stack.append(j)
+            else:
+                return "Rejected"
+    return 'Accepted'
+
+
+def main():
+    line = input()
+    print(check_input(line))
+
+if __name__ == '__main__':
+    main()
