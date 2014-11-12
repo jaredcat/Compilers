@@ -1,7 +1,7 @@
 ##Pooja Srivastava & Jared Kotoff
 #CS 323
-#Programming Assignment 6
-#October 9, 2014
+#Programming Assignment 8
+#November 6, 2014
 
 
 #Potential terminal tokens for this language
