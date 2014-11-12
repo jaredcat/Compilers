@@ -1,0 +1,53 @@
+(i+i)/i$
+Stack: 0
+Stack: 0(4
+Stack: 0(4i5
+Stack: 0(4F3
+Stack: 0(4T2
+Stack: 0(4E10
+Stack: 0(4E10+6
+Stack: 0(4E10+6i5
+Stack: 0(4E10+6F3
+Stack: 0(4E10+6T11
+Stack: 0(4E10
+Stack: 0(4E10)15
+Stack: 0F3
+Stack: 0T2
+Stack: 0T2/9
+Stack: 0T2/9i5
+Stack: 0T2/9F14
+Stack: 0T2
+Stack: 0E1
+Accepted
+
+
+
+i*(i-i)$
+Stack: 0
+Stack: 0i5
+Stack: 0F3
+Stack: 0T2
+Stack: 0T2*8
+Stack: 0T2*8(4
+Stack: 0T2*8(4i5
+Stack: 0T2*8(4F3
+Stack: 0T2*8(4T2
+Stack: 0T2*8(4E10
+Stack: 0T2*8(4E10-7
+Stack: 0T2*8(4E10-7i5
+Stack: 0T2*8(4E10-7F3
+Stack: 0T2*8(4E10-7T12
+Stack: 0T2*8(4E10
+Stack: 0T2*8(4E10)15
+Stack: 0T2*8F13
+Stack: 0T2
+Stack: 0E1
+Accepted
+
+
+
+
+i(i+i)$
+Stack: 0
+Stack: 0i5
+Rejected

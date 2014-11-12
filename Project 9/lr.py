@@ -1,42 +1,35 @@
 ##Pooja Srivastava & Jared Kotoff
 #CS 323
-#Programming Assignment 6
-#October 9, 2014
+#Programming Assignment 9
+#November 13, 2014
 
 
 #Potential terminal tokens for this language
-tokens = ['a', '+', '-', '*', '/', '(', ')', '$']
+tokens = ['i', '+', '-', '*', '/', '(', ')', '$']
 
 
 #Predictive parsing table
-def table(nonterminal, terminal):
-    if nonterminal == 'E':
-        if terminal == 'a' or terminal == '(':
-            return 'TQ'
-    elif nonterminal == 'Q':
-        if terminal == '+':
-            return '+TQ'
-        elif terminal == '-':
-            return '-TQ'
-        elif terminal == ')' or terminal == '$':
-            return '%'
-    elif nonterminal == 'T':
-        if terminal == 'a' or terminal == '(':
-            return 'FR'
-    elif nonterminal == 'R':
-        if terminal == '+' or terminal == '-' or terminal == ')' or terminal == '$':
-            return '%'
-        if terminal == '*':
-            return '*FR'
-        if terminal == '/':
-            return '/FR'
-    elif nonterminal == 'F':
-        if terminal == 'a':
-            return 'a'
-        if terminal == '(':
-            return '(E)'
-    else:
-        return ''
+##[0-15], [0 1 2 3 4 5 6 7 8 9 10]
+##[0-15], [i + - * / ( ) $ E T F]
+table = [
+    [105, 0, 0, 0, 0, 104, 0, 0, 1, 2, 3],
+    [0, 106, 107, 0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 203, 203, 108, 109, 0, 203, 203, 0, 0, ],
+    [0, 206, 206, 206, 206, 0, 206, 206, 0, 0, 0],
+    [105, 0, 0, 0, 0, 104, 0, 0, 10, 2, 3],
+    [0, 208, 208, 208, 208, 0, 208, 208, 0, 0, 0],
+    [105, 0, 0, 0, 0, 104, 0, 0, 0, 11, 3],
+    [105, 0, 0, 0, 0, 104, 0, 0, 0, 12, 3],
+    [105, 0, 0, 0, 0, 104, 0, 0, 0, 0, 13],
+    [105, 0, 0, 0, 0, 104, 0, 0, 0, 0, 14],
+    [0, 106, 107, 0, 0, 0, 115, 0, 0, 0, 0],
+    [0, 201, 201, 108, 109, 0, 201, 201, 0, 0, 0],
+    [0, 202, 202, 108, 109, 0, 202, 202, 0, 0, 0],
+    [0, 204, 204, 204, 204, 0, 204, 204, 0, 0, 0],
+    [0, 205, 205, 205, 205, 0, 205, 205, 0, 0, 0],
+    [0, 207, 207, 207, 207, 0, 207, 207, 0, 0, 0]
+]
+language = [["E", "E+T"], ["E", "E-Y"], ["E", "T"], ["T", "T*F"], ["T", "T/F"], ["T", "F"], ["F", "(E)"], ["F", "i"]]
 
 
 #Function to print the current stack to terminal
@@ -47,45 +40,49 @@ def print_stack(stack):
     print()
 
 
+def convert_token(token):
+    tokens = ["i", "+", "-", "*", "/", "(", ")", "$", "E", "T", "F"]
+    return tokens.index(token)
+
+
 #Traces the input
 def check_input(line):
     i = 0
     stack = ([])
-    stack.append('$')
-    stack.append('E')
+    stack.append('0')
     print_stack(stack)
 
     while stack:
-        #if line ends before the stack is empty then reject
-        if (len(stack) != 0 and len(line) - i == 0):
-            return 'Rejected'
-
         #Looks at the last item in the stack
-        token = stack[len(stack)-1]
+        item = int(stack.pop())
         #First item in the input
-        read = line[i]
+        token = line[i]
 
-        #If the token is terminal
-        if token in tokens:
-            #if the token is the same as the one from the input
-            if token == read:
+        table_lookup = table[item][convert_token(token)]
+        if table_lookup > 200:
+            table_lookup -= 201
+            stack.append(item)
+            language_lookup = language[table_lookup]
+            for j in range(0, len(language_lookup[1])):
                 stack.pop()
-                print_stack(stack)
-                i += 1
-            else:
-                #terminal token but not the same
-                return 'Rejected'
-        else: #Token is non-terminal
-            lookup = table(token, read)
-            if lookup == '%': #if lamda
                 stack.pop()
-            elif lookup: #if not empty
-                stack.pop()
-                for j in reversed(lookup):
-                    stack.append(j)
-            else:
-                return 'Rejected'
-    return 'Accepted'
+            item = stack.pop()
+            token = language_lookup[0]
+            stack.append(item)
+            stack.append(token)
+            stack.append(table[item][convert_token(token)])
+        elif 200 > table_lookup > 100:
+            table_lookup -= 100
+            stack.append(item)
+            stack.append(token)
+            stack.append(table_lookup)
+            i += 1
+        elif table_lookup == 1:
+            return 'Accepted'
+        else:
+            return 'Rejected'
+        print_stack(stack)
+    return 'Rejected'
 
 
 def main():
