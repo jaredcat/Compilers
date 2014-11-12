@@ -4,13 +4,9 @@
 #November 13, 2014
 
 
-#Potential terminal tokens for this language
-tokens = ['i', '+', '-', '*', '/', '(', ')', '$']
-
-
 #Predictive parsing table
-##[0-15], [0 1 2 3 4 5 6 7 8 9 10]
-##[0-15], [i + - * / ( ) $ E T F]
+##[0-15], [0 1 2 3 4 5 6 7 8 9 10] Row #'s
+##[0-15], [i + - * / ( ) $ E T F] Translation
 table = [
     [105, 0, 0, 0, 0, 104, 0, 0, 1, 2, 3],
     [0, 106, 107, 0, 0, 0, 0, 1, 0, 0, 0],
@@ -29,6 +25,7 @@ table = [
     [0, 205, 205, 205, 205, 0, 205, 205, 0, 0, 0],
     [0, 207, 207, 207, 207, 0, 207, 207, 0, 0, 0]
 ]
+#The language [x][0] for left-hand side, [x][1] for right-hand side
 language = [["E", "E+T"], ["E", "E-Y"], ["E", "T"], ["T", "T*F"], ["T", "T/F"], ["T", "F"], ["F", "(E)"], ["F", "i"]]
 
 
@@ -60,13 +57,17 @@ def check_input(line):
 
         table_lookup = table[item][convert_token(token)]
         if table_lookup > 200:
+            #subtract an extra one because of array indexing
             table_lookup -= 201
             stack.append(item)
+            #looks up the grammar in the language
             language_lookup = language[table_lookup]
+            #pop 2*|length of grammar (LHS)|
             for j in range(0, len(language_lookup[1])):
                 stack.pop()
                 stack.pop()
             item = stack.pop()
+            #Push RHS of grammar to stack
             token = language_lookup[0]
             stack.append(item)
             stack.append(token)
