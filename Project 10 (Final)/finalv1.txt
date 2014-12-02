@@ -1,0 +1,15 @@
+PROGRAM a2014;
+(* This program computes and prints the value
+    of an expression *)
+VAR
+    (* declare variables *)
+    a1,   b2a,   c, va12   :INTEGER ;
+BEGIN
+    a1    = 3 ;
+    b2a =    4 ;
+    c    = 5  ;
+
+    (* compute the value of the expression *)
+    ba12 = a1 * ( b2a + 2 * c)    ;
+    WRITE(     ba12 ) ; (* print the value of ba12 *)
+END.
