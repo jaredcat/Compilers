@@ -46,7 +46,6 @@ Accepted
 
 
 
-
 i(i+i)$
 Stack: 0
 Stack: 0i5
