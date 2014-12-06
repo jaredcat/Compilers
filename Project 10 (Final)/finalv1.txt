@@ -1,12 +1,12 @@
 PROGRAM a2014;
 (* This program computes and prints the value
-    of an expression *)
+    Of an expression *)
 VAR
     (* declare variables *)
-    a1,   b2a,   c, va12   :INTEGER ;
+    a1 ,   b2a ,   c, ba12   : INTEGER ;
 BEGIN
     a1    = 3 ;
-    b2a =    4 ;
+    b2a=    4 ;
     c    = 5  ;
 
     (* compute the value of the expression *)
