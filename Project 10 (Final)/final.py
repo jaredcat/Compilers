@@ -219,8 +219,8 @@ def main():
     print(result)
 
     #Part 3
-    #if result == "Accepted":
-    convert_to_cpp(output_file)
+    if result == "Accepted":
+        convert_to_cpp(output_file)
 
     return 0
 
