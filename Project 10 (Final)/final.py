@@ -31,13 +31,17 @@ table = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 0]
 ]
-columns = [0, "PROGRAM", ";", "VAR", "BEGIN", "END.", "{", "}", ":", ", ", "INTEGER", "WRITE(", ")", "=", "+",
-           "-", "*", "/", "(", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "$"]
+columns = [0, "PROGRAM", ";", "VAR", "BEGIN", "END.", "{", "}", ":", ",", "INTEGER", "WRITE(", ")", "=", "+", "-", "*",
+           "/", "(", "DIGITS", "LETTERS", "$"]
 rows = [0, "program", "identifier", "dec-list", "dec", "type", "stat-list", "stat", "write", "assign", "expr",
         "term", "termtail", "factor", "number", "sign", "digit", "id"]
+DIGITS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+LETTERS = ["a", "b", "c", "d", "e"]
 
+symbols = [";", ",", ".", "(", ")"]
 reserved_words = ["PROGRAM", "VAR", "BEGIN", "END.", "INTEGER", "WRITE"]
-predictive_set = [0, ["PROGRAM"], ["LETTERS"], ["DIGITS"], ["LETTERS", "DIGITS"], ["LETTERS", "DIGITS"],
+predictive_set = [0, ["PROGRAM", "identifier", ";", "VAR", "dec-list", "BEGIN", "stat-list", "END."], ["LETTERS"],
+                  ["DIGITS"], ["LETTERS", "DIGITS"], ["LETTERS", "DIGITS"],
                   ["LETTERS", "DIGITS"], ["INTEGER"], ["WRITE(", "LETTERS", "DIGITS"], ["WRITE(", "LETTERS", "DIGITS"],
                   ["WRITE("], ["LETTERS", "DIGITS"], ["WRITE("], ["LETTERS", "DIGITS"],
                   ["(", "LETTERS", "DIGITS", "+", "-"], ["(", "LETTERS", "DIGITS", "+", "-"],
@@ -65,7 +69,7 @@ def readfile(infile, outfile):
                 line = line.replace("+", " + ")
                 line = line.replace("<<", " << ")
                 line = line.replace(";", " ;")
-                line = line.replace(" , ", ", ")
+                line = line.replace("WRITE(", "WRITE (")
                 line = line.replace("\t", " ")
 
                 if comment in line:
@@ -96,7 +100,6 @@ def readfile(infile, outfile):
 
 # Traces the input
 def check_input(file):
-    i = 0
     stack = ([])
     stack.append('$')
     stack.append("program")
@@ -104,32 +107,53 @@ def check_input(file):
 
     with open(file, "r") as f:
         for line in f:
+            line = line.replace("\n", "")
             line = line.split(" " or ';')
+            next_line = False
+            i = 0
             while stack:
+                if next_line:
+                    break
                 # Looks at the last item in the stack
                 token = stack.pop()
                 print_stack(stack)
                 # First item in the input
                 read = line[i]
+                if read[0][0] in LETTERS:
+                    read = "LETTERS"
+                elif read[0][0] in DIGITS:
+                    read = "DIGITS"
 
-                if token == read:
-                    i += 1
-                    read = line[i]
-                    token = stack.pop()
-                    print_stack(stack)
-
-                parse = predictive_set[table[rows.index(token)][columns.index(read)]]
-                for j in range(len(parse)-1, -1, -1):
-                    stack.append(parse[j])
-                print_stack(stack)
+                if token in columns:
+                    if token == read:
+                        i += 1
+                        if i == len(line):
+                            next_line = True
+                    elif token in reserved_words:
+                        print(token + " is expected")
+                        return "Rejected"
+                    else:
+                        return "Rejected"
+                else:
+                    parse = predictive_set[table[rows.index(token)][columns.index(read)]]
+                    if parse != 0:
+                        for j in range(len(parse)-1, -1, -1):
+                            stack.append(parse[j])
+                        print_stack(stack)
+                    else:
+                        return "Rejected"
 
 
 # Function to print the current stack to terminal
 def print_stack(stack):
     print('Stack: ', end='')
     for i in stack:
-        print(i, end='')
+        print(i + " ", end='')
     print()
+
+
+def convert_to_cpp(read_file):
+    return 0
 
 
 def main():
@@ -147,7 +171,11 @@ def main():
     readfile(input_file, output_file)
 
     #Part 2
-    check_input(output_file)
+    result = check_input(output_file)
+
+    #Part 3
+    if result == "Accepted":
+        convert_to_cpp(output_file)
 
     return 0
 
