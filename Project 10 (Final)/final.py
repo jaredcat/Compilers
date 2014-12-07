@@ -152,7 +152,51 @@ def print_stack(stack):
     print()
 
 
-def convert_to_cpp(read_file):
+def print_array(array):
+    for i in array:
+        print("    " + i, end='')
+    print()
+
+
+def convert_to_cpp(file):
+    print()
+    print()
+    with open(file, "r") as f:
+        print("#include <iostream>")
+        print("using name space std;")
+        print("int main()")
+        print("{")
+        next(f)
+        next(f)
+        for line in f:
+            line = line.strip('\n')
+            line = line.split(" ")
+            if "INTEGER" in line:
+                print("    int ", end='')
+                for i in line:
+                    if i == ":":
+                        print(" ;")
+                        break
+                    else:
+                        print(" " + i, end='')
+            elif "BEGIN" in line:
+                1 == 1
+            elif "WRITE" in line:
+                print("    cout<< ", end='')
+                for i in line:
+                    if i == "WRITE" or i == "(":
+                        1 == 1
+                    elif i != ")":
+                        print(i + " << ", end='')
+                    else:
+                        print("endl ;")
+                        break
+            elif "END." in line:
+                print("    return 0;")
+                break
+            else:
+                print_array(line)
+        print("}")
     return 0
 
 
@@ -172,10 +216,11 @@ def main():
 
     #Part 2
     result = check_input(output_file)
+    print(result)
 
     #Part 3
-    if result == "Accepted":
-        convert_to_cpp(output_file)
+    #if result == "Accepted":
+    convert_to_cpp(output_file)
 
     return 0
 
