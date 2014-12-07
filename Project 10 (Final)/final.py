@@ -99,23 +99,29 @@ def check_input(file):
     i = 0
     stack = ([])
     stack.append('$')
-    stack.append(rows.index("program"))
+    stack.append("program")
     print_stack(stack)
 
     with open(file, "r") as f:
         for line in f:
+            line = line.split(" " or ';')
             while stack:
-                line = line.split(" ")
+                # Looks at the last item in the stack
+                token = stack.pop()
+                print_stack(stack)
+                # First item in the input
+                read = line[i]
 
-                #Looks at the last item in the stack
-                token = rows.index(stack[len(stack)-1])
-                #First item in the input
-                read = columns.index(line[i])
+                if token == read:
+                    i += 1
+                    read = line[i]
+                    token = stack.pop()
+                    print_stack(stack)
 
-                parse = table[token][read]
-                if parse
-
-
+                parse = predictive_set[table[rows.index(token)][columns.index(read)]]
+                for j in range(len(parse)-1, -1, -1):
+                    stack.append(parse[j])
+                print_stack(stack)
 
 
 # Function to print the current stack to terminal
@@ -127,12 +133,14 @@ def print_stack(stack):
 
 
 def main():
-    if len(sys.argv) != 3:
-        print('error: you must supply exactly two arguments\n\n' +
-              'usage: python3 <Python source code file> <input file> <output file>>')
-        sys.exit(1)
-    input_file = sys.argv[1]
-    output_file = sys.argv[2]
+    # if len(sys.argv) != 3:
+    #    print('error: you must supply exactly two arguments\n\n' +
+    #          'usage: python3 <Python source code file> <input file> <output file>>')
+    #    sys.exit(1)
+    # input_file = sys.argv[1]
+    # output_file = sys.argv[2]
+    input_file = "finalv1.txt"
+    output_file = "finalv2.txt"
 
     # Part 1
     # Call readFile and read in finalv1.txt
