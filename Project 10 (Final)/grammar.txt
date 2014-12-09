@@ -1,26 +1,21 @@
 program -> PROGRAM identifier ; VAR dec-list BEGIN stat-list END.
-identifier ->  id { id | digit }
+identifier ->  id identifiertail
+identifiertail -> id identifiertail | digit identifiertail | LAMBDA
 dec-list -> dec : type ;
-dec -> identifier , dec | identifier
+dec -> identifier dectail
+dectail -> , dec | LAMBDA
 type -> INTEGER
 stat-list -> stat | stat stat-list
 stat -> write | assign
-write -> WRITE( identifier ) ;
-assign -> identifier = expr ;
-expr -> term | term + expr | term - expr
+write -> WRITE ( identifier ) ;
+assign -> identifier = expr ; 
+expr -> term exprtail
+exprtail -> + expr | - expr | LAMBDA
 term -> factor termtail
 termtail -> * factor termtail | / factor termtail | LAMBDA
 factor -> identifier | number | ( expr )
-number -> sign digit { digit }
+number -> sign digit numbertail
+numbertail -> digit numbertail | LAMBDA
 sign -> + | - | LAMBDA
-digit -> DIGITS
-id -> LETTERS
-
-
-http://hackingoff.com/compilers/ll-1-parser-generator
-
-DIGITS = 0-9
-LETTERS = a-e
-
-//Original Nonterminals//
-term -> term * factor | term / factor | factor
+digit -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+id -> a | b | c | d | e

@@ -1,5 +1,4 @@
 PROGRAM a2014 ;
-Of an expression * )
 VAR
 a1 , b2a , c , ba12 : INTEGER ;
 BEGIN
@@ -7,4 +6,5 @@ a1 = 3 ;
 b2a = 4 ;
 c = 5 ;
 ba12 = a1 * ( b2a + 2 * c ) ;
-WRITE ( ba12 ) ; END. 
+WRITE ( ba12 ) ;
+END. 

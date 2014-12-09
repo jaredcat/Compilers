@@ -76,6 +76,7 @@ def read_file(infile, outfile):
                 line = line.replace(";", " ;")
                 line = line.replace(",", " ,")
                 line = line.replace(")", " )")
+                line = line.replace("* )", "*)")
                 line = line.replace("WRITE(", "WRITE (")
                 line = line.replace("\t", " ")
 
@@ -130,6 +131,8 @@ def check_input(file):
 
                 if token in LETTERS or token in DIGITS or token in SYMBOLS or token in reserved_words:
                     if token == read:
+                        if token == "$":
+                            return "Accepted"
                         i += 1
                     elif token == read[k][0]:
                         k += 1
