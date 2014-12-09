@@ -9,48 +9,53 @@ import string
 
 
 # Key
-# [0, "PROGRAM", ";", "VAR", "BEGIN", "END.", "{", "}", ":", ",", "INTEGER", "WRITE(", ")", "=", "+", "-", "*", "/",
-# "(", "DIGITS", "LETTERS", "$"]
+# [0, "PROGRAM", ";", "VAR", "BEGIN", "END.", ":", ", ", "INTEGER", "WRITE", "(", ")", "=", "+", "-", "*", "/", "0",
+# "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "$"]
 table = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 11, 11, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 13, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 16, 0, 0, 16, 16, 16, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 17, 0, 0, 17, 17, 17, 0],
-    [0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 20, 20, 18, 19, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 22, 0, 0, 23, 22, 21, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 24, 0, 0, 0, 24, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 25, 26, 0, 0, 0, 27, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 0]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0],
+    [0, 0, 5, 0, 0, 0, 5, 5, 0, 0, 0, 5, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 0],
+    [0, 0, 0, 0, 0, 0, 9, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 12, 12, 12, 12, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 14, 14, 14, 14, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 16, 16, 16, 16, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 0, 0, 17, 17, 0, 0, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 0],
+    [0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 18, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 21, 21, 0, 0, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 0],
+    [0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 24, 24, 22, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 26, 26, 0, 0, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 25, 25, 25, 25, 25, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 28, 0, 0, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 0, 0, 0, 0, 0, 0],
+    [0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 0, 30, 0, 30, 30, 30, 30, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 32, 0, 0, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 44, 45, 46, 47, 48, 0]
 ]
-columns = [0, "PROGRAM", ";", "VAR", "BEGIN", "END.", "{", "}", ":", ",", "INTEGER", "WRITE(", ")", "=", "+", "-", "*",
-           "/", "(", "DIGITS", "LETTERS", "$"]
-rows = [0, "program", "identifier", "dec-list", "dec", "type", "stat-list", "stat", "write", "assign", "expr",
-        "term", "termtail", "factor", "number", "sign", "digit", "id"]
-DIGITS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-LETTERS = ["a", "b", "c", "d", "e"]
+columns = [0, "PROGRAM", ";", "VAR", "BEGIN", "END.", ":", ",", "INTEGER", "WRITE", "(", ")", "=", "+", "-", "*", "/",
+           "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "$"]
+rows = [0, "program", "identifier", "identifiertail", "dec-list", "dec", "dectail", "type", "stat-list", "stat",
+        "write", "assign", "expr", "exprtail", "term", "termtail", "factor", "number", "numbertail", "sign", "digit", "id"]
+DIGITS = ["DIGITS", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+LETTERS = ["LETTERS", "a", "b", "c", "d", "e"]
+SYMBOLS = [",", ";", ":", "(", ")", "-", "+", "-", "*", "/", "="]
 
-symbols = [";", ",", ".", "(", ")"]
 reserved_words = ["PROGRAM", "VAR", "BEGIN", "END.", "INTEGER", "WRITE"]
-predictive_set = [0, ["PROGRAM", "identifier", ";", "VAR", "dec-list", "BEGIN", "stat-list", "END."], ["LETTERS"],
-                  ["DIGITS"], ["LETTERS", "DIGITS"], ["LETTERS", "DIGITS"],
-                  ["LETTERS", "DIGITS"], ["INTEGER"], ["WRITE(", "LETTERS", "DIGITS"], ["WRITE(", "LETTERS", "DIGITS"],
-                  ["WRITE("], ["LETTERS", "DIGITS"], ["WRITE("], ["LETTERS", "DIGITS"],
-                  ["(", "LETTERS", "DIGITS", "+", "-"], ["(", "LETTERS", "DIGITS", "+", "-"],
-                  ["(", "LETTERS", "DIGITS", "+", "-"], ["(", "LETTERS", "DIGITS", "+", "-"], ["*"], ["/"],
-                  ["+", "-", ")", ";"], ["LETTERS", "DIGITS"], ["+", "-", "DIGITS"], ["("], ["+", "-", "DIGITS"],
-                  ["+"], ["-"], ["DIGITS"], ["DIGITS"], ["LETTERS"]]
+predictive_set = [0, ["PROGRAM", "identifier", ";", "VAR", "dec-list", "BEGIN", "stat-list", "END."],
+                  ["id", "identifiertail"], ["id", "identifiertail"], ["digit", "identifiertail"], ["λ"],
+                  ["dec", ":", "type", ";"], ["identifier", "dectail"], [",", "dec"], ["λ"], ["INTEGER"], ["stat"],
+                  ["stat", "stat-list"], ["write"], ["assign"], ["WRITE", "(", "identifier", ")", ";"],
+                  ["identifier", "=", "expr", ";"], ["term", "exprtail"], ["+", "expr"], ["-", "expr"], ["λ"],
+                  ["factor", "termtail"], ["*", "factor", "termtail"], ["/", "factor", "termtail"], ["λ"],
+                  ["identifier"], ["number"], ["(", "expr", ")"], ["sign", "digit", "numbertail"],
+                  ["digit", "numbertail"], ["λ"], ["+"], ["-"], ["λ"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"],
+                  ["7"], ["8"], ["9"], ["a"], ["b"], ["c"], ["d"], ["e"]]
 
 
-def readfile(infile, outfile):
+def read_file(infile, outfile):
     t_list = []
     g = open(outfile, "w")
 
@@ -69,6 +74,8 @@ def readfile(infile, outfile):
                 line = line.replace("+", " + ")
                 line = line.replace("<<", " << ")
                 line = line.replace(";", " ;")
+                line = line.replace(",", " ,")
+                line = line.replace(")", " )")
                 line = line.replace("WRITE(", "WRITE (")
                 line = line.replace("\t", " ")
 
@@ -100,6 +107,7 @@ def readfile(infile, outfile):
 
 # Traces the input
 def check_input(file):
+    k = 0
     stack = ([])
     stack.append('$')
     stack.append("program")
@@ -119,29 +127,37 @@ def check_input(file):
                 print_stack(stack)
                 # First item in the input
                 read = line[i]
-                if read[0][0] in LETTERS:
-                    read = "LETTERS"
-                elif read[0][0] in DIGITS:
-                    read = "DIGITS"
 
-                if token in columns:
+                if token in LETTERS or token in DIGITS or token in SYMBOLS or token in reserved_words:
                     if token == read:
                         i += 1
-                        if i == len(line):
-                            next_line = True
+                    elif token == read[k][0]:
+                        k += 1
+                        if k == len(read):
+                            i += 1
+                            k = 0
                     elif token in reserved_words:
-                        print(token + " is expected")
+                        print("\n" +token + " is expected")
+                        print(read + " was provided" + "\n")
                         return "Rejected"
                     else:
                         return "Rejected"
+                    if i == len(line):
+                            next_line = True
                 else:
-                    parse = predictive_set[table[rows.index(token)][columns.index(read)]]
-                    if parse != 0:
+                    if read[k][0] in LETTERS or read[k][0] in DIGITS:
+                        column = columns.index(read[k][0])
+                    else:
+                        column = columns.index(read)
+                    row = rows.index(token)
+                    parse = predictive_set[table[row][column]]
+
+                    if parse != ['λ']:
+                        if parse == 0:
+                            return "Rejected"
                         for j in range(len(parse)-1, -1, -1):
                             stack.append(parse[j])
                         print_stack(stack)
-                    else:
-                        return "Rejected"
 
 
 # Function to print the current stack to terminal
@@ -212,7 +228,7 @@ def main():
 
     # Part 1
     # Call readFile and read in finalv1.txt
-    readfile(input_file, output_file)
+    read_file(input_file, output_file)
 
     #Part 2
     result = check_input(output_file)
