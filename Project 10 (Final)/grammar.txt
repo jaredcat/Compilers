@@ -5,7 +5,8 @@ dec-list -> dec : type ;
 dec -> identifier dectail
 dectail -> , dec | LAMBDA
 type -> INTEGER
-stat-list -> stat | stat stat-list
+stat-list -> stat stat-listtail
+stat-listtail -> stat-list | LAMBDA
 stat -> write | assign
 write -> WRITE ( identifier ) ;
 assign -> identifier = expr ; 
