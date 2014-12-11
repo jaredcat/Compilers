@@ -3,10 +3,6 @@
 # Final Project
 # December 11, 2014
 
-import sys
-import re
-import string
-
 
 # Key
 # [0, "PROGRAM", ";", "VAR", "BEGIN", "END.", ":", ",", "INTEGER", "WRITE", "(", ")", "=", "+", "-", "*", "/", "0",
