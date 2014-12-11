@@ -3,13 +3,13 @@ PROGRAM a2014;
     Of an expression *)
 VAR
     (* declare variables *)
-    a1 ,   b2a ,   c, ba12   : INTEGER ;
+    a1 ,   b2a ,   c, ba12  :  INTEGER ;
 BEGIN
-    a1    = 3 ;
+    a1    = 3;
     b2a=    4 ;
     c    = 5  ;
 
     (* compute the value of the expression *)
-    ba12 = a1 * ( b2a + 2 * c)    ;
+    ba12 = a1 * ( b2a + 2 * c )   ;
     WRITE(     ba12 ) ; (* print the value of ba12 *)
 END.
